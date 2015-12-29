@@ -23,9 +23,9 @@ class Game(Pyro.WindowHandle):
         self.window.graph.addElement(self.playField)
 
     def run(self, delta):
-        if Input.isKeyDown(Input.KEY_ARROW_UP):
+        if Input.isKeyDown(Input.KEY_UP):
             self.player1.y -= self.player1Speed * delta
-        if Input.isKeyDown(Input.KEY_ARROW_DOWN):
+        if Input.isKeyDown(Input.KEY_DOWN):
             self.player1.y += self.player1Speed * delta
 
         if self.player1.y < 0:
