@@ -4,33 +4,20 @@
 #include <boost/python.hpp>
 #include <boost/filesystem.hpp>
 
-#include "Window.h"
-#include "WindowHandle.h"
-#include "WindowHandleCallback.h"
+#include "window/WindowManager.h"
+#include "python/PyroModule.h"
+#include "python/SceneModule.h"
 
 using namespace std;
 
 namespace py = boost::python;
-
-BOOST_PYTHON_MODULE(Pyro) {
-    using namespace boost::python;
-
-    class_<Window>("Window")
-            .add_property("title", &Window::getTitle, &Window::setTitle)
-            .add_property("width", &Window::getWidth, &Window::setWindowWidth)
-            .add_property("height", &Window::getHeight, &Window::setWindowHeight)
-            .def("start", &Window::start);
-
-    class_<WindowHandle, boost::noncopyable, boost::shared_ptr<WindowHandleCallback>>("WindowHandle")
-            .def("run", &WindowHandle::run);
-
-    implicitly_convertible<auto_ptr<WindowHandleCallback>, auto_ptr<WindowHandle> >();
-}
+namespace pywin = Pyro::Window;
 
 int main() {
 
     Py_Initialize();
-    initPyro();
+    Pyro::Python::initPyro();
+    Pyro::Python::initScene();
 
     boost::filesystem::path workingDir = boost::filesystem::absolute("./").normalize();
     PyObject* sysPath = PySys_GetObject("path");
@@ -43,7 +30,8 @@ int main() {
         return 0;
     }
 
-    Window* mainWindow = new Window();
+    //Window* mainWindow = new Window();
+    pywin::WindowManager* windowManager = new pywin::WindowManager();
 
     py::object main_module((py::handle<>(py::borrowed(PyImport_AddModule("__main__")))));
     py::object main_namespace = main_module.attr("__dict__");
@@ -51,7 +39,7 @@ int main() {
     try {
         py::object main(py::exec_file("main.py", main_namespace, main_namespace));
 
-        main_namespace["init"](mainWindow);
+        main_namespace["init"](windowManager->getPyroWindow());
     } catch (py::error_already_set const & e) {
         PyErr_Print();
     }
