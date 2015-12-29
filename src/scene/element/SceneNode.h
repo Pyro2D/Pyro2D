@@ -22,13 +22,13 @@ namespace Pyro {
 
                 void addElement(Pyro::Scene::SceneElement* element);
 
-                virtual void draw();
+                virtual void draw(boost::shared_ptr<Window::PyroWindow> window);
                 virtual void update(float delta);
 
                 virtual float getPositionX();
-                void setPositionX(float x);
+                virtual void setPositionX(float x);
                 virtual float getPositionY();
-                void setPositionY(float y);
+                virtual void setPositionY(float y);
 
                 static boost::shared_ptr<SceneNode> initWrapper(std::string name);
             };

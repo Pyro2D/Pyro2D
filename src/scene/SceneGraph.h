@@ -3,7 +3,6 @@
 
 #include <vector>
 
-#include "Scene.h"
 #include "SceneElement.h"
 #include "../util/Drawable.h"
 #include "../util/Updateable.h"
@@ -12,25 +11,22 @@ namespace Pyro {
     namespace Scene {
         class SceneGraph : public SceneElement {
         private:
-            std::vector<SceneElement*> elements;
+            std::vector<boost::shared_ptr<SceneElement>> elements;
             float baseX;
             float baseY;
         public:
             SceneGraph();
-            ~SceneGraph();
 
-            void addElement(SceneElement* element);
+            void addElement(boost::shared_ptr<SceneElement> element);
+            void cleanup();
 
-            virtual void draw();
+            virtual void draw(boost::shared_ptr<Window::PyroWindow> window);
             virtual void update(float delta);
-
-
-
-            virtual void init(SceneElement *parent);
-
+            virtual void init(boost::shared_ptr<SceneElement> parent);
             virtual float getPositionX();
-
             virtual float getPositionY();
+            virtual void setPositionX(float x);
+            virtual void setPositionY(float y);
         };
     }
 }

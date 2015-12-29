@@ -6,7 +6,7 @@ namespace Pyro{
 
         class WindowHandle {
         public:
-            virtual void run() = 0;
+            virtual void run(float delta) = 0;
         };
     }
 }

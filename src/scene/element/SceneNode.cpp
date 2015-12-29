@@ -2,9 +2,9 @@
 
 using namespace Pyro::Scene::Element;
 
-void SceneNode::draw() {
+void SceneNode::draw(boost::shared_ptr<Window::PyroWindow> window) {
     for(auto element: elements) {
-        element->draw();
+        element->draw(window);
     }
 }
 
@@ -23,7 +23,7 @@ float SceneNode::getPositionY() {
 }
 
 void SceneNode::addElement(Pyro::Scene::SceneElement* element) {
-    element->init(boost::shared_ptr<Pyro::Scene::SceneElement>(this));
+    element->init(shared_from_this());
     elements.push_back(element);
 }
 

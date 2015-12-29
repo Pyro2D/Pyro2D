@@ -7,6 +7,7 @@
 #include "window/WindowManager.h"
 #include "python/PyroModule.h"
 #include "python/SceneModule.h"
+#include "python/InputModule.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ int main() {
     Py_Initialize();
     Pyro::Python::initPyro();
     Pyro::Python::initScene();
+    Pyro::Python::initInput();
 
     boost::filesystem::path workingDir = boost::filesystem::absolute("./").normalize();
     PyObject* sysPath = PySys_GetObject("path");

@@ -4,6 +4,7 @@ using namespace Pyro::Window;
 
 WindowManager::WindowManager() : window() {
     pyroWindow = std::shared_ptr<PyroWindow>(new PyroWindow(this));
+    pyroWindow->setSelf(boost::shared_ptr<PyroWindow>(pyroWindow.get()));
 }
 
 void WindowManager::update() {
@@ -22,6 +23,8 @@ void WindowManager::handleEvents() {
         if (event.type == sf::Event::Closed)
             window.close();
     }
+
+    window.clear(sf::Color::Black);
 }
 
 void WindowManager::open() {
@@ -30,4 +33,12 @@ void WindowManager::open() {
 
 void WindowManager::display() {
     window.display();
+}
+
+void WindowManager::draw(sf::Drawable& drawable) {
+    window.draw(drawable);
+}
+
+void WindowManager::cleaup() {
+    pyroWindow->cleanup();
 }

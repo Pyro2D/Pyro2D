@@ -15,8 +15,8 @@ namespace Pyro {
         public:
             SceneElementCallback(PyObject* p, std::string name) : SceneElement(name), self(p) { }
 
-            virtual void draw() {
-                return py::call_method<void>(self, "draw");
+            virtual void draw(boost::shared_ptr<Window::PyroWindow> window) {
+                return py::call_method<void, boost::shared_ptr<Window::PyroWindow>>(self, "draw", window);
             }
 
             virtual void update(float delta) {
@@ -29,6 +29,14 @@ namespace Pyro {
 
             virtual float getPositionY() {
                 return py::call_method<float>(self, "getPositionY");
+            }
+
+            virtual void setPositionX(float x) {
+                return py::call_method<void, float>(self, "setPositionX", x);
+            }
+
+            virtual void setPositionY(float y) {
+                return py::call_method<void, float>(self, "setPositionY", y);
             }
 
             PyObject* self;

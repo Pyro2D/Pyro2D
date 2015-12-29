@@ -13,7 +13,7 @@ namespace Pyro {
         public:
             WindowHandleCallback(PyObject* p) : self(p) {}
 
-            void run() { return py::call_method<void>(self, "run"); }
+            void run(float delta) { return py::call_method<void, float>(self, "run", delta); }
 
             PyObject* self;
         };

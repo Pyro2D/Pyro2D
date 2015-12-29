@@ -3,6 +3,7 @@
 
 #include <string>
 #include <boost/smart_ptr/shared_ptr.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "../SceneElement.h"
 
@@ -13,16 +14,22 @@ namespace Pyro {
             private:
                 float x;
                 float y;
+                float width;
+                float height;
+
+                sf::RectangleShape shape;
             public:
-                SceneBox(std::string name, float x, float y);
+                SceneBox(std::string name, float x, float y, float width, float height);
 
 
-                virtual void draw();
+                virtual void draw(boost::shared_ptr<Window::PyroWindow> window);
                 virtual void update(float delta);
                 virtual float getPositionX();
                 virtual float getPositionY();
+                virtual void setPositionX(float x);
+                virtual void setPositionY(float y);
 
-                static boost::shared_ptr<SceneBox> initWrapper(std::string name, float x, float y);
+                static boost::shared_ptr<SceneBox> initWrapper(std::string name, float x, float y, float width, float height);
             };
         }
     }

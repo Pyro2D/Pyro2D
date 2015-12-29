@@ -21,7 +21,7 @@ include_directories(${SFML_INCLUDE_DIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES src/main.cpp src/window/PyroWindow.cpp src/window/PyroWindow.h src/window/WindowHandle.h src/window/WindowHandleCallback.h src/window/WindowManager.cpp src/window/WindowManager.h src/window/Window.h src/scene/SceneGraph.cpp src/scene/SceneGraph.h src/scene/Scene.h src/util/Util.h src/util/Drawable.h src/util/Updateable.h src/scene/SceneElement.h src/scene/element/Element.h src/scene/element/SceneNode.cpp src/scene/element/SceneNode.h src/scene/element/SceneBox.cpp src/scene/element/SceneBox.h src/python/PyroModule.h src/python/SceneModule.h src/scene/SceneElementCallback.h)
+set(SOURCE_FILES src/main.cpp src/window/PyroWindow.cpp src/window/PyroWindow.h src/window/WindowHandle.h src/window/WindowHandleCallback.h src/window/WindowManager.cpp src/window/WindowManager.h src/window/Window.h src/scene/SceneGraph.cpp src/scene/SceneGraph.h src/scene/Scene.h src/util/Util.h src/util/Drawable.h src/util/Updateable.h src/scene/SceneElement.h src/scene/element/Element.h src/scene/element/SceneNode.cpp src/scene/element/SceneNode.h src/scene/element/SceneBox.cpp src/scene/element/SceneBox.h src/python/PyroModule.h src/python/SceneModule.h src/scene/SceneElementCallback.h src/python/InputModule.h)
 add_executable(${EXECUTABLE_NAME} ${SOURCE_FILES})
 
 # Link executable with dependencies

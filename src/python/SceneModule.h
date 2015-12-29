@@ -26,17 +26,20 @@ namespace Pyro {
                     .def("draw", &pyscene::SceneElement::draw)
                     .def("update", &pyscene::SceneElement::update)
                     .def("init", &pyscene::SceneElement::init)
-                    .add_property("x", &pyscene::SceneElement::getPositionX)
-                    .add_property("y", &pyscene::SceneElement::getPositionY);
+                    .add_property("x", &pyscene::SceneElement::getPositionX, &pyscene::SceneElement::setPositionX)
+                    .add_property("y", &pyscene::SceneElement::getPositionY, &pyscene::SceneElement::setPositionY)
+                    .add_property("name", &pyscene::SceneElement::getName, &pyscene::SceneElement::setName);
 
             class_<pyscene::Element::SceneNode, bases<pyscene::SceneElement>>("Node", no_init)
                     .def("__init__", make_constructor(&pyscene::Element::SceneNode::initWrapper))
                     .def("addElement", &pyscene::Element::SceneNode::addElement)
                     .add_property("x", &pyscene::SceneGraph::getPositionX)
-                    .add_property("y", &pyscene::SceneGraph::getPositionY);
+                    .add_property("y", &pyscene::SceneGraph::getPositionY)
+                    .add_property("name", &pyscene::SceneElement::getName, &pyscene::SceneElement::setName);
 
             class_<pyscene::Element::SceneBox, bases<pyscene::SceneElement>>("Box", no_init)
-                    .def("__init__", make_constructor(&pyscene::Element::SceneBox::initWrapper));
+                    .def("__init__", make_constructor(&pyscene::Element::SceneBox::initWrapper))
+                    .add_property("name", &pyscene::SceneElement::getName, &pyscene::SceneElement::setName);
 
             implicitly_convertible<std::auto_ptr<pyscene::SceneElementCallback>, std::auto_ptr<pyscene::SceneElement> >();
             implicitly_convertible<std::auto_ptr<pyscene::Element::SceneBox>, std::auto_ptr<pyscene::SceneElement> >();

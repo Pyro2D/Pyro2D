@@ -9,7 +9,7 @@ namespace Pyro {
     namespace Window {
         class WindowManager {
         private:
-            sf::Window window;
+            sf::RenderWindow window;
             std::shared_ptr<PyroWindow> pyroWindow;
 
         public:
@@ -24,6 +24,10 @@ namespace Pyro {
             std::shared_ptr<PyroWindow> getPyroWindow() {
                 return pyroWindow;
             }
+
+            void draw(sf::Drawable& drawable);
+
+            void cleaup();
         };
     }
 }

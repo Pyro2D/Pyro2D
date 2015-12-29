@@ -4,9 +4,10 @@
 #include <string>
 
 #include <boost/python.hpp>
+#include <SFML/Graphics/Drawable.hpp>
 
 #include "Window.h"
-#include "../scene/SceneGraph.h"
+#include "../scene/Scene.h"
 
 namespace py = boost::python;
 
@@ -22,6 +23,9 @@ namespace Pyro {
             WindowManager* manager;
 
             boost::shared_ptr<Scene::SceneGraph> graph;
+            boost::shared_ptr<PyroWindow> self;
+
+            bool reloadGame;
 
         public:
             PyroWindow(WindowManager *manager);
@@ -29,6 +33,8 @@ namespace Pyro {
             void setTitle(std::string);
             void setSize(unsigned int, unsigned int);
             void start(WindowHandle&);
+            void draw(sf::Drawable& draw);
+            void cleanup();
 
             unsigned int getWidth() const {
                 return windowWidth;
@@ -41,11 +47,21 @@ namespace Pyro {
             void setWindowWidth(unsigned int windowWidth);
             void setWindowHeight(unsigned int windowHeight);
 
+            bool getReloadGame() { return reloadGame; }
+
             std::string getTitle() {
                 return title;
             }
 
             boost::shared_ptr<Scene::SceneGraph> getSceneGraph() { return this->graph; }
+
+            boost::shared_ptr<PyroWindow> getSelf() {
+                return self;
+            }
+
+            void setSelf(boost::shared_ptr<PyroWindow> self) {
+                this->self = self;
+            }
         };
     }
 }
